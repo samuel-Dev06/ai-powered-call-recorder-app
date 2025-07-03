@@ -40,11 +40,11 @@ export const navItems: NavItem[] = [
   {
     displayName: 'Pricing',
     iconName: 'solar:dollar-minimalistic-broken',
-    route: '/home/subscription/pricing',
+    route: '/subscription/pricing',
   },{
     displayName: 'Documentation',
     iconName: 'solar:document-add-broken',
-    route: '/home/subscription/documentation',
+    route: '/subscription/documentation',
   },
 
 
