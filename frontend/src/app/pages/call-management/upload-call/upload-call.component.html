@@ -1,6 +1,78 @@
 <mat-card class="cardWithShadow">
     <mat-card-content>
-      <mat-card-title>Upload Call</mat-card-title>
-      <mat-card-subtitle>Upload a call recording to analyze</mat-card-subtitle>
-    </mat-card-content>
-  </mat-card>
+    <mat-card-title>Upload Calls</mat-card-title>
+    <mat-card-subtitle>Upload a call recording to analyze</mat-card-subtitle>
+  </mat-card-content>
+
+</mat-card>
+
+<mat-card class="cardWithShadow">
+    <mat-card-content>
+
+
+    <!-- Drag & Drop Upload Area -->
+    <div class="upload-dropzone" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)"
+      (dragleave)="onDragLeave($event)" [class.active]="isDropzoneActive">
+      <mat-icon>cloud_upload</mat-icon>
+      <p>Drag & drop your .mp3 or .wav file here, or</p>
+      <button mat-raised-button color="primary" (click)="fileInput.click()">Browse</button>
+      <input #fileInput type="file" accept=".mp3,.wav" hidden (change)="onFileSelected($event)" />
+    </div>
+
+    <!-- Selected File Info -->
+    <div *ngIf="selectedFile" class="file-info">
+      <mat-chip color="primary" selected>
+        {{ selectedFile.name }} ({{ selectedFile.size / 1000 | number:'1.0-0' }} KB)
+      </mat-chip>
+      <button mat-icon-button color="warn" (click)="removeFile()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <!-- Upload Button & Progress -->
+    <div class="upload-actions" *ngIf="selectedFile">
+      <button mat-raised-button color="accent" (click)="uploadFile()" [disabled]="isUploading">
+        Upload
+      </button>
+      <mat-progress-bar *ngIf="isUploading" mode="indeterminate"></mat-progress-bar>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<!-- Processing Progress -->
+<mat-card *ngIf="isProcessing" class="cardWithShadow">
+  <mat-card-content>
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    <p>{{ processingStatus }}</p>
+  </mat-card-content>
+</mat-card>
+
+<!-- Results Section -->
+<mat-card *ngIf="callResult" class="cardWithShadow">
+  <mat-card-content>
+    <mat-card-title>Call Analysis</mat-card-title>
+    <div class="call-details">
+      <p><strong>Customer:</strong> {{ callResult.customerName }}</p>
+      <p><strong>Agent:</strong> {{ callResult.agentName }}</p>
+      <p><strong>Date:</strong> {{ callResult.timestamp | date:'medium' }}</p>
+      <p><strong>Duration:</strong> {{ callResult.duration | number }} seconds</p>
+      <p><strong>Sentiment:</strong> {{ callResult.sentiment }}</p>
+      <p><strong>Rating:</strong> {{ callResult.rating }}/10</p>
+    </div>
+    <mat-divider></mat-divider>
+    <h3>Summary</h3>
+    <p>{{ callResult.summary }}</p>
+    <h3>Action Items</h3>
+    <mat-list>
+      <mat-list-item *ngFor="let item of callResult.actionItems">
+        <mat-icon matListIcon>check_circle</mat-icon>
+        <span matLine>{{ item }}</span>
+      </mat-list-item>
+    </mat-list>
+    <h3>Transcript</h3>
+    <div class="transcript-box">
+      <pre>{{ callResult.transcript }}</pre>
+    </div>
+    <button mat-raised-button color="primary" (click)="exportToPDF()">Export Transcript to PDF</button>
+  </mat-card-content>
+</mat-card>
