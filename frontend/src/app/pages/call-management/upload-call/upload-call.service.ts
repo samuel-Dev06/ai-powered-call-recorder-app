@@ -4,13 +4,13 @@ import { Observable } from "rxjs";
 
 @Injectable({ providedIn: "root" })
 export class UploadCallService {
-  private baseUrl = "http://localhost:8000/api/v1/call"; // Change to your FastAPI base URL
+  private baseUrl = "http://localhost:8000/api/v1"; // Change to your FastAPI base URL
 
   constructor(private http: HttpClient) {}
 
   uploadCall(file: File): Observable<any> {
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("audio-file", file);
     return this.http.post<any>(`${this.baseUrl}/upload`, formData);
   }
 

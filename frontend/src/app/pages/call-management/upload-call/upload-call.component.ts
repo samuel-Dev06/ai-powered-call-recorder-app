@@ -110,6 +110,7 @@ export class UploadCallComponent implements OnDestroy {
 
     this.uploadService.uploadCall(this.selectedFile).subscribe({
       next: (res) => {
+        console.log(res);
         this.isUploading = false;
         this.isProcessing = true;
         this.processingStatus = res.message || "Processing audio...";
