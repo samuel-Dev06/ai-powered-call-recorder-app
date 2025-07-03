@@ -1,0 +1,82 @@
+# Complete AI Call Summarization System Docker Compose
+version: '3.8'
+
+services:
+  # MongoDB Database
+  mongodb:
+    image: mongo:6.0
+    container_name: ai-call-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - ai-call-network
+    restart: unless-stopped
+    command: mongod --quiet --logpath /dev/null
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # FastAPI Backend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ai-call-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - MONGODB_URL=mongodb://ai-call-mongodb:27017
+      - DATABASE_NAME=ai_call_summarization
+      - CORS_ORIGINS=http://localhost:8501,http://ai-call-frontend:8501,http://localhost:3000
+      - PORT=8000
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - ai-call-network
+    restart: unless-stopped
+    volumes:
+      - /tmp/ai_call_audio:/tmp/ai_call_audio
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Streamlit Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: ai-call-frontend
+    ports:
+      - "8501:8501"
+    environment:
+      - BACKEND_URL=http://ai-call-backend:8000
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - ai-call-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  ai-call-network:
+    name: ai-call-network
+    driver: bridge
+
+volumes:
+  mongodb_data:
+    name: ai_call_mongodb_data
