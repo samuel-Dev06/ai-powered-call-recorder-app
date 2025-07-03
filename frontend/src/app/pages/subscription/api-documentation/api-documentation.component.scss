@@ -1,11 +1,56 @@
+.api-docs-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(90deg, #1976d2 0%, #2196f3 100%);
+  padding: 32px 0 24px 0;
+  border-radius: 0 0 24px 24px;
+  margin-bottom: 32px;
+  box-shadow: 0 4px 24px rgba(25, 118, 210, 0.08);
+}
+
+.api-logo {
+  height: 64px;
+  width: 64px;
+  margin-right: 24px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(33, 150, 243, 0.10);
+}
+
+.api-title-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.api-title {
+  color: #fff;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.api-subtitle {
+  color: #e3f2fd;
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-top: 4px;
+}
+
 .api-docs-container {
   max-width: 900px;
   margin: 0 auto;
-  padding: 20px 0;
+  padding: 32px 0;
 }
 
-mat-card {
+.api-section-card {
   margin-bottom: 32px;
+  background: #f4f8fd;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(33, 150, 243, 0.06);
+  border: 1px solid #e3f2fd;
 }
 
 mat-card-title, mat-card-subtitle {
@@ -17,13 +62,19 @@ mat-chip {
 }
 
 pre {
-  background: #f5f5f5;
+  background: #e3f2fd;
   border-radius: 6px;
   padding: 16px;
   font-size: 14px;
   overflow-x: auto;
+  border: 1px solid #bbdefb;
 }
 
 ul {
   margin-left: 1.5rem;
+}
+
+mat-icon {
+  vertical-align: middle;
+  margin-right: 4px;
 }

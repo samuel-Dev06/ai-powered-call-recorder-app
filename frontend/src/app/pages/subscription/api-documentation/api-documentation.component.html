@@ -1,12 +1,21 @@
+<div class="api-docs-header">
+    <img src="assets/images/logos/callgist.png" alt="CallGist Logo" class="api-logo" />
+    <div class="api-title-group">
+        <h1 class="api-title">CallGist API</h1>
+        <span class="api-subtitle">AI Call Summarization & Analytics</span>
+    </div>
+</div>
+
 <div class="api-docs-container">
-    <mat-card>
-        <mat-card-title class="text-center">CallGist API Documentation</mat-card-title>
+    <mat-card class="api-section-card">
+        <mat-card-title class="text-center">API Documentation</mat-card-title>
         <mat-card-subtitle class="text-center">
+            <mat-icon color="primary">info</mat-icon>
             AI-powered call analysis and summarization API for modern contact centers
         </mat-card-subtitle>
     </mat-card>
 
-    <mat-card class="mt-4">
+    <mat-card class="api-section-card">
         <mat-card-title>Overview</mat-card-title>
         <mat-card-content>
             <p>
@@ -22,17 +31,18 @@
         </mat-card-content>
     </mat-card>
 
-    <mat-card class="mt-4">
+    <mat-card class="api-section-card">
         <mat-card-title>Authentication</mat-card-title>
         <mat-card-content>
             <p>
+                <mat-icon color="accent">lock_open</mat-icon>
                 <strong>No authentication</strong> is required for testing. Production environments should implement API
                 key or token-based authentication.
             </p>
         </mat-card-content>
     </mat-card>
 
-    <mat-card class="mt-4">
+    <mat-card class="api-section-card">
         <mat-card-title>Core Endpoints</mat-card-title>
         <mat-card-content>
             <mat-accordion>
@@ -66,7 +76,8 @@
                     </mat-expansion-panel-header>
                     <p>Checks the processing status of a call.</p>
                     <p><strong>Status Values:</strong> <code>processing</code>, <code>completed</code>,
-                        <code>failed</code></p>
+                        <code>failed</code>
+                    </p>
                     <pre><code>&#123;
   "call_id": "call_5c20fc3b2de5",
   "status": "completed",
@@ -197,7 +208,7 @@
         </mat-card-content>
     </mat-card>
 
-    <mat-card class="mt-4">
+    <mat-card class="api-section-card">
         <mat-card-title>Data Models</mat-card-title>
         <mat-card-content>
             <mat-chip-listbox>
@@ -230,7 +241,7 @@
         </mat-card-content>
     </mat-card>
 
-    <mat-card class="mt-4">
+    <mat-card class="api-section-card">
         <mat-card-title>Error Handling</mat-card-title>
         <mat-card-content>
             <pre><code>400 Bad Request - Unsupported audio format
@@ -239,7 +250,7 @@
         </mat-card-content>
     </mat-card>
 
-    <mat-card class="mt-4">
+    <mat-card class="api-section-card">
         <mat-card-title>Rate Limits</mat-card-title>
         <mat-card-content>
             <ul>
@@ -249,7 +260,7 @@
         </mat-card-content>
     </mat-card>
 
-    <mat-card class="mt-4">
+    <mat-card class="api-section-card">
         <mat-card-title>Best Practices</mat-card-title>
         <mat-card-content>
             <ul>
@@ -262,7 +273,7 @@
         </mat-card-content>
     </mat-card>
 
-    <mat-card class="mt-4">
+    <mat-card class="api-section-card">
         <mat-card-title>Integration Examples</mat-card-title>
         <mat-card-content>
             <h5>Python</h5>
@@ -299,7 +310,7 @@ console.log(summary);</code></pre>
         </mat-card-content>
     </mat-card>
 
-    <mat-card class="mt-4">
+    <mat-card class="api-section-card">
         <mat-card-title>Support</mat-card-title>
         <mat-card-content>
             <p>
