@@ -22,12 +22,7 @@ export const routes: Routes = [
         path: 'dashboard',
         loadChildren: () =>
           import('./pages/pages.routes').then((m) => m.PagesRoutes),
-      },
-      {
-        path: 'subscription',
-        loadChildren: () =>
-          import('./pages/subscription/subscription.routes').then((m) => m.SubscriptionRoutes),
-      },{
+      }, {
         path: 'call',
         loadChildren: () =>
           import('./pages/call-management/call.routes').then((m) => m.CallRoutes),
@@ -44,6 +39,11 @@ export const routes: Routes = [
           import('./pages/authentication/authentication.routes').then(
             (m) => m.AuthenticationRoutes
           ),
+      },
+      {
+        path: 'subscription',
+        loadChildren: () =>
+            import('./pages/subscription/subscription.routes').then((m) => m.SubscriptionRoutes),
       },
     ],
   },

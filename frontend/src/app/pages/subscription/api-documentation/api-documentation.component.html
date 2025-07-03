@@ -1,1 +1,322 @@
-<p>api-documentation works!</p>
+<div class="api-docs-header">
+    <img src="assets/images/logos/callgist.png" alt="CallGist Logo" class="api-logo" />
+    <div class="api-title-group">
+        <h1 class="api-title">CallGist API</h1>
+        <span class="api-subtitle">AI Call Summarization & Analytics</span>
+    </div>
+</div>
+
+<div class="api-docs-container">
+    <mat-card class="api-section-card">
+        <mat-card-title class="text-center">API Documentation</mat-card-title>
+        <mat-card-subtitle class="text-center">
+            <mat-icon color="primary">info</mat-icon>
+            AI-powered call analysis and summarization API for modern contact centers
+        </mat-card-subtitle>
+    </mat-card>
+
+    <mat-card class="api-section-card">
+        <mat-card-title>Overview</mat-card-title>
+        <mat-card-content>
+            <p>
+                The <strong>CallGist API</strong> provides intelligent AI-powered analysis of customer service calls,
+                transforming audio into structured insights including transcripts, sentiment, summaries, and action
+                items.
+            </p>
+            <p>
+                <strong>Base URL:</strong> <code>http://localhost:8000</code> &nbsp; | &nbsp;
+                <strong>API Version:</strong> <code>v1</code> &nbsp; | &nbsp;
+                <strong>Prefix:</strong> <code>/api/v1</code>
+            </p>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="api-section-card">
+        <mat-card-title>Authentication</mat-card-title>
+        <mat-card-content>
+            <p>
+                <mat-icon color="accent">lock_open</mat-icon>
+                <strong>No authentication</strong> is required for testing. Production environments should implement API
+                key or token-based authentication.
+            </p>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="api-section-card">
+        <mat-card-title>Core Endpoints</mat-card-title>
+        <mat-card-content>
+            <mat-accordion>
+                <!-- Upload Call Audio -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <mat-chip color="primary" selected>POST</mat-chip>
+                            /upload - Upload Call Audio
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <p>Uploads a call recording for transcription and AI analysis.</p>
+                    <p><strong>Request:</strong> <code>multipart/form-data</code></p>
+                    <pre><code>audio_file (required): .mp3, .wav, .webm, .m4a, .opus</code></pre>
+                    <p><strong>Response:</strong></p>
+                    <pre><code>{{ '{' }}
+  "call_id": "call_5c20fc3b2de5",
+  "status": "processing",
+  "message": "Audio uploaded successfully. Processing started.",
+  "processing_url": "/api/v1/call/call_5c20fc3b2de5/status"
+                        {{ '}' }}</code></pre>
+                </mat-expansion-panel>
+
+                <!-- Get Call Status -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <mat-chip color="accent" selected>GET</mat-chip>
+                            /call/{{ '{' }}call_id{{ '}' }}/status - Get Call Status
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <p>Checks the processing status of a call.</p>
+                    <p><strong>Status Values:</strong> <code>processing</code>, <code>completed</code>,
+                        <code>failed</code>
+                    </p>
+                    <pre><code>&#123;
+  "call_id": "call_5c20fc3b2de5",
+  "status": "completed",
+  "progress": 100,
+  "message": "Call analysis completed successfully",
+  "created_at": "2025-07-03T09:24:16.123Z",
+  "completed_at": "2025-07-03T09:25:45.678Z"
+                        {{ '}' }}</code></pre>
+                </mat-expansion-panel>
+
+                <!-- Get Call Transcript -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <mat-chip color="accent" selected>GET</mat-chip>
+                            /call/{{ '{' }}call_id{{ '}' }}/transcript - Get Call Transcript
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <p>Retrieves the transcribed call text and metadata such as duration, confidence, and language.</p>
+                    <pre><code>{{ '{' }}
+  "call_id": "call_5c20fc3b2de5",
+  "transcript": "Good afternoon, thank you for calling EcoCash support...",
+  "word_count": 156,
+  "duration_seconds": 45.2,
+  "language": "en",
+  "confidence": 0.95
+                        {{ '}' }}</code></pre>
+                </mat-expansion-panel>
+
+                <!-- Get Call Summary & Analysis -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <mat-chip color="accent" selected>GET</mat-chip>
+                            /call/{{ '{' }}call_id{{ '}' }}/summary - Get Summary & Analysis
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <p>Returns AI-generated summary, sentiment, category, priority, resolution, action items, tags, and
+                        agent performance insights.</p>
+                    <pre><code>{{ '{' }}
+  "call_id": "call_5c20fc3b2de5",
+  "summary": [
+    "Customer experienced airtime purchase issue with EcoCash",
+    "Agent efficiently resolved the issue by crediting airtime",
+    "Customer confirmed satisfaction with resolution"
+  ],
+  "sentiment": "positive",
+  "category": "billing",
+  "priority": "medium",
+  "resolution_status": "resolved",
+  "action_items": [
+    "Investigate why airtime did not post to mobile operator system",
+    "Update system to prevent future occurrences"
+  ],
+  "customer_requests": [
+    "Receive purchased airtime",
+    "Resolution of airtime deduction issue"
+  ],
+  "tags": [
+    "airtime_purchase",
+    "credit_issue",
+    "resolved",
+    "ecocash"
+  ],
+  "agent_performance": "Efficient - resolved the issue promptly and credited airtime",
+  "follow_up_required": false,
+  "call_duration": 45.2,
+  "created_at": "2025-07-03T09:24:16.123Z"
+                        {{ '}' }}</code></pre>
+                </mat-expansion-panel>
+
+                <!-- Search Calls -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <mat-chip color="primary" selected>POST</mat-chip>
+                            /calls/search - Search Calls
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <p>Searches calls using filters such as sentiment, priority, resolution, tags, and date ranges.</p>
+                    <pre><code>{{ '{' }}
+  "sentiment": "positive",
+  "category": "billing",
+  "priority": "high",
+  "resolution_status": "resolved",
+  "date_from": "2025-07-01T00:00:00Z",
+  "date_to": "2025-07-03T23:59:59Z",
+  "tags": ["airtime", "payment"],
+  "limit": 20,
+  "offset": 0
+                        {{ '}' }}</code></pre>
+                </mat-expansion-panel>
+
+                <!-- List Recent Calls -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <mat-chip color="accent" selected>GET</mat-chip>
+                            /calls - List Recent Calls
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <p>Returns a paginated list of recently uploaded or analyzed calls.</p>
+                </mat-expansion-panel>
+
+                <!-- Analytics Dashboard -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <mat-chip color="accent" selected>GET</mat-chip>
+                            /analytics/dashboard - Analytics Dashboard
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <p>Returns analytical metrics for call center performance (sentiment, resolution, tags, duration,
+                        etc.).</p>
+                </mat-expansion-panel>
+
+                <!-- API Usage Statistics -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <mat-chip color="accent" selected>GET</mat-chip>
+                            /analytics/usage - API Usage Statistics
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <p>Shows call volume, success rates, processing time, and peak usage trends.</p>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="api-section-card">
+        <mat-card-title>Data Models</mat-card-title>
+        <mat-card-content>
+            <mat-chip-listbox>
+                <mat-chip color="primary" selected>Categories</mat-chip>
+                <mat-chip>billing</mat-chip>
+                <mat-chip>technical</mat-chip>
+                <mat-chip>bundles</mat-chip>
+                <mat-chip>complaints</mat-chip>
+                <mat-chip>general_inquiry</mat-chip>
+                <mat-chip>other</mat-chip>
+            </mat-chip-listbox>
+            <mat-chip-listbox>
+                <mat-chip color="primary" selected>Sentiment</mat-chip>
+                <mat-chip>positive</mat-chip>
+                <mat-chip>neutral</mat-chip>
+                <mat-chip>negative</mat-chip>
+            </mat-chip-listbox>
+            <mat-chip-listbox>
+                <mat-chip color="primary" selected>Priority</mat-chip>
+                <mat-chip>high</mat-chip>
+                <mat-chip>medium</mat-chip>
+                <mat-chip>low</mat-chip>
+            </mat-chip-listbox>
+            <mat-chip-listbox>
+                <mat-chip color="primary" selected>Resolution Status</mat-chip>
+                <mat-chip>resolved</mat-chip>
+                <mat-chip>pending</mat-chip>
+                <mat-chip>escalated</mat-chip>
+            </mat-chip-listbox>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="api-section-card">
+        <mat-card-title>Error Handling</mat-card-title>
+        <mat-card-content>
+            <pre><code>400 Bad Request - Unsupported audio format
+404 Not Found - Call not found
+500 Internal Server Error - AI processing failed</code></pre>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="api-section-card">
+        <mat-card-title>Rate Limits</mat-card-title>
+        <mat-card-content>
+            <ul>
+                <li><strong>Upload:</strong> 10 requests/min/IP</li>
+                <li><strong>Other Endpoints:</strong> 100 requests/min/IP</li>
+            </ul>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="api-section-card">
+        <mat-card-title>Best Practices</mat-card-title>
+        <mat-card-content>
+            <ul>
+                <li>Use .mp3 or .wav for best results</li>
+                <li>Limit file size to 25MB</li>
+                <li>Poll /status every 5–10 seconds</li>
+                <li>Implement retries and backoff for failures</li>
+                <li>Cache summary results to minimize repeated calls</li>
+            </ul>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="api-section-card">
+        <mat-card-title>Integration Examples</mat-card-title>
+        <mat-card-content>
+            <h5>Python</h5>
+            <pre><code>import requests
+import time
+
+with open('call.mp3', 'rb') as f:
+    response = requests.post('http://localhost:8000/api/v1/upload', files={{ '{' }}'audio_file': f{{ '}' }})
+    call_id = response.json()['call_id']
+
+while True:
+    status = requests.get(f'http://localhost:8000/api/v1/call/{{ '{' }}call_id{{ '}' }}/status').json()
+    if status['status'] == 'completed':
+        break
+    time.sleep(5)
+
+summary = requests.get(f'http://localhost:8000/api/v1/call/{{ '{' }}call_id{{ '}' }}/summary').json()
+print(summary)</code></pre>
+            <h5>JavaScript</h5>
+            <pre><code>const formData = new FormData();
+formData.append('audio_file', file);
+const upload = await fetch('http://localhost:8000/api/v1/upload', {{ '{' }} method: 'POST', body: formData {{ '}' }});
+const {{ '{' }} call_id {{ '}' }} = await upload.json();
+
+let status;
+do {{ '{' }}
+  const res = await fetch(`http://localhost:8000/api/v1/call/${{ '{' }}call_id{{ '}' }}/status`);
+  status = await res.json();
+  await new Promise(resolve => setTimeout(resolve, 5000));
+                {{ '}' }} while (status.status !== 'completed');
+
+const summary = await fetch(`http://localhost:8000/api/v1/call/${{ '{' }}call_id{{ '}' }}/summary`).then(res => res.json());
+console.log(summary);</code></pre>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="api-section-card">
+        <mat-card-title>Support</mat-card-title>
+        <mat-card-content>
+            <p>
+                For help, contact the development team or view the
+                <a href="http://localhost:8000/docs" target="_blank">Swagger Docs</a>.
+            </p>
+        </mat-card-content>
+    </mat-card>
+</div>
