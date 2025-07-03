@@ -85,7 +85,6 @@ yarn-error.log
 .yarn-integrity
 
 # AI/ML specific
-models/
 *.pkl
 *.pickle
 *.model
