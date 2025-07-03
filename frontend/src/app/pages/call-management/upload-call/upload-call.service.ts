@@ -22,11 +22,7 @@ export class UploadCallService {
     return this.http.get<any>(url);
   }
 
-  getTranscript(processingUrl: string): Observable<any> {
-    // If the backend returns a relative URL, prepend the base URL
-    const url = processingUrl.startsWith("http")
-      ? processingUrl
-      : `http://localhost:8000${processingUrl}`;
-    return this.http.get<any>(url);
+  getTranscript(callId: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/${callId}/transcript`);
   }
 }
