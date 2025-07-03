@@ -5,6 +5,7 @@
     text-align: center;
     color: #1976d2;
     background: #e3f2fd;
+    margin-top: 20px;
     margin-bottom: 16px;
     transition: border-color 0.3s, background 0.3s;
     cursor: pointer;
@@ -55,4 +56,53 @@
     margin-bottom: 16px;
     font-family: 'Fira Mono', 'Consolas', monospace;
     font-size: 13px;
+  }
+
+  
+
+  .call-summary-table {
+    display: table;
+    width: 100%;
+    margin-bottom: 16px;
+  
+    .row {
+      display: table-row;
+      .label, .value {
+        display: table-cell;
+        padding: 8px 0;
+        vertical-align: middle;
+      }
+      .label {
+        font-weight: 500;
+        color: #1976d2;
+        width: 160px;
+      }
+      .value {
+        font-weight: 400;
+      }
+    }
+  }
+  
+  mat-chip.sentiment-success {
+    background-color: #e8f5e9;
+    color: #388e3c;
+    font-weight: 600;
+  }
+  mat-chip.sentiment-neutral {
+    background-color: #fffde7;
+    color: #fbc02d;
+    font-weight: 600;
+  }
+  mat-chip.sentiment-danger {
+    background-color: #ffebee;
+    color: #d32f2f;
+    font-weight: 600;
+  }
+  
+  .center-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 16px;
   }

@@ -2,28 +2,29 @@ import { Component, ViewChild, ElementRef, OnDestroy } from "@angular/core";
 
 import { interval, Subscription } from "rxjs";
 import jsPDF from "jspdf";
-import {UploadCallService} from "../../../services/upload-call.service";
-import {MatCardModule} from "@angular/material/card";
-import {MatButtonModule} from "@angular/material/button";
-import {MatIconModule} from "@angular/material/icon";
-import {MatProgressBarModule} from "@angular/material/progress-bar";
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
-import {MatDividerModule} from "@angular/material/divider";
-import {MatListModule} from "@angular/material/list";
-import {MatChipsModule} from "@angular/material/chips";
-import {CommonModule} from "@angular/common";
+import { UploadCallService } from "../../../services/upload-call.service";
+import { MatCardModule } from "@angular/material/card";
+import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from "@angular/material/icon";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatDividerModule } from "@angular/material/divider";
+import { MatListModule } from "@angular/material/list";
+import { MatChipsModule } from "@angular/material/chips";
+import { CommonModule } from "@angular/common";
 
 @Component({
   selector: "app-upload-call",
-  imports : [MatCardModule
-    ,MatButtonModule
-    ,MatIconModule
-    ,MatProgressBarModule
-    ,MatProgressSpinnerModule
-    ,MatListModule
-    ,MatDividerModule,
-      MatChipsModule,
-      CommonModule
+  imports: [
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatListModule,
+    MatDividerModule,
+    MatChipsModule,
+    CommonModule,
   ],
   templateUrl: "./upload-call.component.html",
   styleUrls: ["./upload-call.component.scss"],
@@ -35,7 +36,7 @@ export class UploadCallComponent implements OnDestroy {
   isDropzoneActive = false;
   isUploading = false;
   isProcessing = false;
-  processingStatus = "";
+  processingStatus = "50% of the call has been transcribed.";
   callResult: any = null;
 
   private pollingSub?: Subscription;

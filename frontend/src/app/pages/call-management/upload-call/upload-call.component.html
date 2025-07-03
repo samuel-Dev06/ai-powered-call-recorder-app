@@ -1,5 +1,5 @@
 <mat-card class="cardWithShadow">
-    <mat-card-content>
+  <mat-card-content>
     <mat-card-title>Upload Calls</mat-card-title>
     <mat-card-subtitle>Upload a call recording to analyze</mat-card-subtitle>
   </mat-card-content>
@@ -7,9 +7,8 @@
 </mat-card>
 
 <mat-card class="cardWithShadow">
-    <mat-card-content>
-
-
+  <mat-card-content>
+    <mat-card-title>Upload Your Audio Call File</mat-card-title>
     <!-- Drag & Drop Upload Area -->
     <div class="upload-dropzone" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)"
       (dragleave)="onDragLeave($event)" [class.active]="isDropzoneActive">
@@ -30,7 +29,7 @@
     </div>
 
     <!-- Upload Button & Progress -->
-    <div class="upload-actions" *ngIf="selectedFile">
+    <div class="center-actions" *ngIf="selectedFile">
       <button mat-raised-button color="accent" (click)="uploadFile()" [disabled]="isUploading">
         Upload
       </button>
@@ -42,8 +41,13 @@
 <!-- Processing Progress -->
 <mat-card *ngIf="isProcessing" class="cardWithShadow">
   <mat-card-content>
-    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-    <p>{{ processingStatus }}</p>
+    <div class="center-actions">
+      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    </div>
+    <div class="center-actions">
+      <p>{{ processingStatus }}</p>
+    </div>
+
   </mat-card-content>
 </mat-card>
 
@@ -51,13 +55,39 @@
 <mat-card *ngIf="callResult" class="cardWithShadow">
   <mat-card-content>
     <mat-card-title>Call Analysis</mat-card-title>
-    <div class="call-details">
-      <p><strong>Customer:</strong> {{ callResult.customerName }}</p>
-      <p><strong>Agent:</strong> {{ callResult.agentName }}</p>
-      <p><strong>Date:</strong> {{ callResult.timestamp | date:'medium' }}</p>
-      <p><strong>Duration:</strong> {{ callResult.duration | number }} seconds</p>
-      <p><strong>Sentiment:</strong> {{ callResult.sentiment }}</p>
-      <p><strong>Rating:</strong> {{ callResult.rating }}/10</p>
+    <div class="call-summary-table">
+      <div class="row">
+        <div class="label">Customer</div>
+        <div class="value">{{ callResult.customerName }}</div>
+      </div>
+      <div class="row">
+        <div class="label">Agent</div>
+        <div class="value">{{ callResult.agentName }}</div>
+      </div>
+      <div class="row">
+        <div class="label">Date</div>
+        <div class="value">{{ callResult.timestamp | date:'medium' }}</div>
+      </div>
+      <div class="row">
+        <div class="label">Duration</div>
+        <div class="value">{{ callResult.duration | number }} seconds</div>
+      </div>
+      <div class="row">
+        <div class="label">Sentiment</div>
+        <div class="value">
+          <mat-chip [ngClass]="{
+            'sentiment-success': callResult.sentiment === 'Positive',
+            'sentiment-neutral': callResult.sentiment === 'Neutral',
+            'sentiment-danger': callResult.sentiment === 'Negative'
+          }">
+            {{ callResult.sentiment }}
+          </mat-chip>
+        </div>
+      </div>
+      <div class="row">
+        <div class="label">Rating</div>
+        <div class="value">{{ callResult.rating }}/10</div>
+      </div>
     </div>
     <mat-divider></mat-divider>
     <h3>Summary</h3>
@@ -73,6 +103,8 @@
     <div class="transcript-box">
       <pre>{{ callResult.transcript }}</pre>
     </div>
-    <button mat-raised-button color="primary" (click)="exportToPDF()">Export Transcript to PDF</button>
+    <div class="center-actions">
+      <button mat-raised-button color="primary" (click)="exportToPDF()">Export Transcript to PDF</button>
+    </div>
   </mat-card-content>
 </mat-card>
