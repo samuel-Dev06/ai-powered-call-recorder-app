@@ -75,13 +75,18 @@
       <div class="row">
         <div class="label">Sentiment</div>
         <div class="value">
-          <mat-chip [ngClass]="{
-            'sentiment-success': callResult.sentiment === 'Positive',
-            'sentiment-neutral': callResult.sentiment === 'Neutral',
-            'sentiment-danger': callResult.sentiment === 'Negative'
-          }">
-            {{ callResult.sentiment }}
-          </mat-chip>
+            <span class="bg-light-primary text-primary f-s-12 f-w-500 p-x-10 p-y-4 rounded-pill">
+                       {{ callResult.sentiment }}
+                    </span>
+
+
+<!--          <mat-chip [ngClass]="{-->
+<!--            'sentiment-success': callResult.sentiment === 'Positive',-->
+<!--            'sentiment-neutral': callResult.sentiment === 'Neutral',-->
+<!--            'sentiment-danger': callResult.sentiment === 'Negative'-->
+<!--          }">-->
+
+<!--          </mat-chip>-->
         </div>
       </div>
       <div class="row">

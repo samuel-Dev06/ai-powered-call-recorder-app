@@ -29,8 +29,22 @@ export const navItems: NavItem[] = [
   },
   {
     displayName: 'Recordings',
-    iconName: 'solar:document-text-bold',
+    iconName: 'solar:microphone-2-broken',
     route: '/home/call/report',
+  },
+
+  {
+    navCap: 'Subscription Management',
+    divider: true
+  },
+  {
+    displayName: 'Pricing',
+    iconName: 'solar:dollar-minimalistic-broken',
+    route: '/home/subscription/pricing',
+  },{
+    displayName: 'Documentation',
+    iconName: 'solar:document-add-broken',
+    route: '/home/subscription/documentation',
   },
 
 

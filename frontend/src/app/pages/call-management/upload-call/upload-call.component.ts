@@ -37,7 +37,18 @@ export class UploadCallComponent implements OnDestroy {
   isUploading = false;
   isProcessing = false;
   processingStatus = "50% of the call has been transcribed.";
-  callResult: any = null;
+  callResult: any = {
+    "callId": "12345",
+    "customerName": "John Doe",
+    "agentName": "Alice",
+    "timestamp": "2025-07-02T10:15:00Z",
+    "duration": 230,
+    "transcript": "...",
+    "summary": "Customer called about billing issue...",
+    "actionItems": ["Send invoice copy", "Call back on Friday"],
+    "sentiment": "Positive",
+    "rating": 8
+  };
 
   private pollingSub?: Subscription;
   private processingUrl: string = "";

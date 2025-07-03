@@ -24,16 +24,9 @@ export const routes: Routes = [
           import('./pages/pages.routes').then((m) => m.PagesRoutes),
       },
       {
-        path: 'ui-components',
+        path: 'subscription',
         loadChildren: () =>
-          import('./pages/ui-components/ui-components.routes').then(
-            (m) => m.UiComponentsRoutes
-          ),
-      },
-      {
-        path: 'extra',
-        loadChildren: () =>
-          import('./pages/extra/extra.routes').then((m) => m.ExtraRoutes),
+          import('./pages/subscription/subscription.routes').then((m) => m.SubscriptionRoutes),
       },{
         path: 'call',
         loadChildren: () =>
