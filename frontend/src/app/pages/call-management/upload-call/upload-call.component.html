@@ -2,7 +2,12 @@
   <mat-card-content>
     <mat-card-title>Upload Call</mat-card-title>
     <mat-card-subtitle>Upload a call recording to analyze</mat-card-subtitle>
+  </mat-card-content>
+</mat-card>
 
+<mat-card class="cardWithShadow">
+    <mat-card-content>
+        <mat-card-title>Upload Voice Audio for Analysis</mat-card-title>
     <!-- Drag & Drop Upload Area -->
     <div class="upload-dropzone" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)"
       (dragleave)="onDragLeave($event)" [class.active]="isDropzoneActive">
